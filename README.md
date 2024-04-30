@@ -5,8 +5,11 @@
 ## TODO:
 
 - [x] CI/CD (vercel)
-- [x] optimize build
-- [] setup orm (drizzle)
-- [] setup db (vercel postgres)
+- [x] change ts version to workspace
+- [x] optimize build (turbopack)
+- [x] component library (shadcn)
+- [x] icons (lucide)
+- [x] setup db (vercel postgres)
+- [x] setup orm (drizzle)
 - [] auth (clerk)
 - [] analytics (posthog)
