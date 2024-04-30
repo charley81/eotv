@@ -6,7 +6,9 @@
 
 - [x] CI/CD (vercel)
 - [x] optimize build
+- [x] shadcn setup
+- [x] install lucide icons
+- [x] setup db (vercel postgres)
 - [] setup orm (drizzle)
-- [] setup db (vercel postgres)
 - [] auth (clerk)
 - [] analytics (posthog)
