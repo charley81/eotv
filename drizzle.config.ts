@@ -6,5 +6,5 @@ export default {
   dbCredentials: {
     connectionString: process.env.POSTGRES_URL!
   },
-  tablesFilter: ['global-db_*']
+  tablesFilter: ['eotv_*']
 } satisfies Config

@@ -17,21 +17,20 @@ import { title } from 'process'
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = pgTableCreator((name) => `global-db_${name}`)
+export const createTable = pgTableCreator((name) => `eotv_${name}`)
 
-export const posts = createTable(
-  'post',
+export const events = createTable(
+  'events',
   {
     id: serial('id').primaryKey(),
-    title: varchar('title', { length: 50 }).notNull(),
-    content: varchar('content', { length: 1024 }).notNull(),
+    eventName: varchar('eventName', { length: 50 }).notNull(),
     createdAt: timestamp('created_at')
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp('updatedAt')
   },
   (example) => ({
-    nameIndex: index('title_idx').on(example.title)
+    nameIndex: index('title_idx').on(example.eventName)
   })
 )
 
