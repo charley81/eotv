@@ -1,17 +1,15 @@
-import { db } from '@/server/db/index'
+import LandingPageHeader from '@/components/ui/landing/header'
+import Image from 'next/image'
 
-export const dynamic = 'force-dynamic'
-
-export default async function Home() {
-  const events = await db.query.events.findMany()
-
+export default async function LandingPage() {
   return (
-    <main className="p-16">
-      {events.map((event) => (
-        <div key={event.id} className="p-4 ">
-          <h2 className="text-xl font-bold">{event.eventName}</h2>
-        </div>
-      ))}
+    <main className="">
+      {/* header */}
+      <LandingPageHeader />
+
+      {/* hero image */}
+
+      {/* hero info */}
     </main>
   )
 }
