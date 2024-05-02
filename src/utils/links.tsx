@@ -10,7 +10,7 @@ type Link = {
   Icon: React.ReactNode
 }
 
-const links:git a Link[] = [
+export const mainNavLinks: Link[] = [
   {
     href: '/all-events',
     name: 'All Events',
