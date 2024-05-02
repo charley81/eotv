@@ -14,3 +14,4 @@
 - [x] analytics (posthog)
 - [x] auth (clerk)
 - [] change favicon
+- [] fix landing page image color issue in dark mode
