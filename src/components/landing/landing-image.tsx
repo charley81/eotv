@@ -8,6 +8,7 @@ export default function LandingImage() {
       alt="man cooking on grill"
       width={600}
       height={600}
+      className="hidden md:block mx-auto"
     />
   )
 }

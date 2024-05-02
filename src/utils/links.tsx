@@ -7,23 +7,23 @@ import { Copy, FilePlus2, SquareUserRound } from 'lucide-react'
 type Link = {
   href: string
   name: string
-  Icon: React.ReactNode
+  icon: React.ReactNode
 }
 
 export const mainNavLinks: Link[] = [
   {
     href: '/all-events',
     name: 'All Events',
-    Icon: <Copy />
+    icon: <Copy />
   },
   {
-    href: '/create-event',
-    name: 'Create Event',
-    Icon: <FilePlus2 />
+    href: '/add-event',
+    name: 'Add Event',
+    icon: <FilePlus2 />
   },
   {
     href: '/my-events',
     name: 'My Events',
-    Icon: <SquareUserRound />
+    icon: <SquareUserRound />
   }
 ]
