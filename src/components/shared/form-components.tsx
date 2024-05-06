@@ -77,3 +77,20 @@ export function CustomFormSelect({
     />
   )
 }
+
+export function CustomFormTextarea({ name, control }: CustomFormFieldProps) {
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <FormControl>
+            <Textarea placeholder={name} {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+}
