@@ -4,7 +4,7 @@ export type EventType = {
   id: string
   eventName: string
   houseNumber: string
-  dateOfEvent: string
+  dateOfEvent: Date
   category: string
   startTime: string
   endTime: string
@@ -23,7 +23,7 @@ export enum Category {
 export const createAndEditEventSchema = z.object({
   eventName: z.string().min(2).max(25),
   houseNumber: z.string().min(2).max(6),
-  dateOfEvent: z.string().min(2).max(8),
+  dateOfEvent: z.date(),
   startTime: z.string().min(2),
   endTime: z.string().min(2),
   eventHost: z.string().min(2).max(25),
