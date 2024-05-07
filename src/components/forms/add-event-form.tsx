@@ -7,7 +7,8 @@ import { Form } from '../ui/form'
 import {
   CustomFormField,
   CustomFormSelect,
-  CustomFormTextarea
+  CustomFormTextarea,
+  CustomFormTimePicker
 } from './form-components'
 import {
   EventType,
@@ -48,8 +49,8 @@ export default function AddEventForm() {
             control={form.control}
             items={Object.values(Category)}
           />
-          <CustomFormField name="Start Time" control={form.control} />
-          <CustomFormField name="End Time" control={form.control} />
+          <CustomFormTimePicker name="Start Time" control={form.control} />
+          <CustomFormTimePicker name="End Time" control={form.control} />
           <CustomFormField name="Event Host" control={form.control} />
           <CustomFormTextarea name="Event Details" control={form.control} />
           <Button type="submit">Add Event</Button>
