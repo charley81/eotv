@@ -8,7 +8,8 @@ import { times } from '@/utils/times'
 import {
   CustomFormField,
   CustomSelect,
-  CustomTextarea
+  CustomTextarea,
+  CustomDatePicker
 } from './form-components'
 import {
   Category,
@@ -49,11 +50,7 @@ export default function AddEventForm() {
           control={form.control}
           placeholderText="House #"
         />
-        <CustomFormField
-          name="dateOfEvent"
-          control={form.control}
-          placeholderText="Date"
-        />
+        <CustomDatePicker name="dateOfEvent" control={form.control} />
         <CustomSelect
           name="category"
           control={form.control}

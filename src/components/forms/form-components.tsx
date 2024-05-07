@@ -30,7 +30,12 @@ import {
   PopoverTrigger
 } from '@/components/ui/popover'
 
-export function useCustomDatePicker() {
+type CustomDatePickerProps = {
+  name: string
+  control: Control<any>
+}
+
+export function CustomDatePicker({ name, control }: CustomDatePickerProps) {
   const [date, setDate] = React.useState<Date>()
 
   return (
