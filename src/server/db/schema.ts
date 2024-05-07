@@ -9,7 +9,6 @@ import {
   timestamp,
   varchar
 } from 'drizzle-orm/pg-core'
-import { title } from 'process'
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -24,6 +23,13 @@ export const events = createTable(
   {
     id: serial('id').primaryKey(),
     eventName: varchar('eventName', { length: 50 }).notNull(),
+    houseNumber: varchar('houseNumber', { length: 50 }).notNull(),
+    dateOfEvent: varchar('dateOfEvent', { length: 50 }).notNull(),
+    category: varchar('category', { length: 50 }).notNull(),
+    startTime: varchar('startTime', { length: 50 }).notNull(),
+    endTime: varchar('endTime', { length: 50 }).notNull(),
+    eventHost: varchar('eventHost', { length: 50 }).notNull(),
+    eventDetails: varchar('eventDetails', { length: 1024 }).notNull(),
     createdAt: timestamp('created_at')
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
@@ -33,27 +39,3 @@ export const events = createTable(
     nameIndex: index('title_idx').on(example.eventName)
   })
 )
-
-// export const posts = createTable(
-//   'events',
-//   {
-//     id: serial('id').primaryKey(),
-//     eventName: varchar('eventName', { length: 50 }).notNull(),
-//     image: varchar('image', { length: 800 }).notNull(),
-//     houseNumber: varchar('houseNumber', { length: 50 }).notNull(),
-//     dateOfEvent: date('date').notNull(),
-//     category: enum('category', ['music', 'sports', 'food', 'art', 'other']),
-//     startTime: timestamp('startTime').notNull(),
-//     endTime: timestamp('endTime').notNull(),
-//     NameOfHost: varchar('NameOfHost', { length: 50 }).notNull(),
-//     eventDetails: varchar('eventDetails', { length: 1024 }).notNull(),
-
-//     createdAt: timestamp('created_at')
-//       .default(sql`CURRENT_TIMESTAMP`)
-//       .notNull(),
-//     updatedAt: timestamp('updatedAt')
-//   },
-//   (example) => ({
-//     nameIndex: index('title_idx').on(example.eventName)
-//   })
-// )
