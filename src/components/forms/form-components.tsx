@@ -1,7 +1,15 @@
+'use client'
+
+import * as React from 'react'
 import { Control } from 'react-hook-form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { Calendar } from '@/components/ui/calendar'
 import { times } from '@/utils/times'
+import { format } from 'date-fns'
+import { Calendar as CalendarIcon } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 import {
   FormControl,
   FormField,
@@ -16,13 +24,52 @@ import {
   SelectValue,
   SelectGroup
 } from '@/components/ui/select'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover'
+
+export function useCustomDatePicker() {
+  const [date, setDate] = React.useState<Date>()
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant={'outline'}
+          className={cn(
+            'w-[280px] justify-start text-left font-normal',
+            !date && 'text-muted-foreground'
+          )}
+        >
+          <CalendarIcon className="mr-2 h-4 w-4" />
+          {date ? format(date, 'PPP') : <span>Pick a date</span>}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0">
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          initialFocus
+        />
+      </PopoverContent>
+    </Popover>
+  )
+}
 
 type CustomFormFieldProps = {
   control: Control<any>
   name: string
+  placeholderText: string
 }
 
-export function CustomFormField({ name, control }: CustomFormFieldProps) {
+export function CustomFormField({
+  name,
+  control,
+  placeholderText
+}: CustomFormFieldProps) {
   return (
     <FormField
       control={control}
@@ -30,7 +77,7 @@ export function CustomFormField({ name, control }: CustomFormFieldProps) {
       render={({ field }) => (
         <FormItem>
           <FormControl>
-            <Input placeholder={name} {...field} />
+            <Input placeholder={placeholderText} {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -39,27 +86,56 @@ export function CustomFormField({ name, control }: CustomFormFieldProps) {
   )
 }
 
-type CustomFormSelectProps = {
+type CustomTextareaProps = {
   control: Control<any>
   name: string
-  items: string[]
+  placeholderText: string
 }
 
-export function CustomFormSelect({
-  control,
+export function CustomTextarea({
   name,
-  items
-}: CustomFormSelectProps) {
+  control,
+  placeholderText
+}: CustomTextareaProps) {
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
         <FormItem>
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <FormControl>
+            <Textarea placeholder={placeholderText} {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+}
+
+type CustomSelectProps = {
+  control: Control<any>
+  name: string
+  placeholderText: string
+  items: string[]
+}
+
+export function CustomSelect({
+  control,
+  name,
+  items,
+  placeholderText
+}: CustomSelectProps) {
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem>
+          <Select onValueChange={field.onChange}>
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder="Select a verified email to display" />
+                <SelectValue placeholder={placeholderText} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
@@ -71,63 +147,6 @@ export function CustomFormSelect({
             </SelectContent>
           </Select>
           <FormMessage />
-        </FormItem>
-      )}
-    />
-  )
-}
-
-type CustomFormTextareaProps = {
-  control: Control<any>
-  name: string
-}
-
-export function CustomFormTextarea({ name, control }: CustomFormTextareaProps) {
-  return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormControl>
-            <Textarea placeholder={name} {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  )
-}
-
-type CustomFormTimePickerProps = {
-  control: Control<any>
-  name: string
-}
-
-export function CustomFormTimePicker({
-  control,
-  name
-}: CustomFormTimePickerProps) {
-  return (
-    <FormField
-      control={control}
-      name={name}
-      render={() => (
-        <FormItem>
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder={name} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {times.map((time) => (
-                  <SelectItem key={time} value={time}>
-                    {time}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
         </FormItem>
       )}
     />

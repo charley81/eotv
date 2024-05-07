@@ -4,14 +4,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Button } from '../ui/button'
 import { Form } from '../ui/form'
+import { times } from '@/utils/times'
 import {
   CustomFormField,
-  CustomFormSelect,
-  CustomFormTextarea,
-  CustomFormTimePicker
+  CustomSelect,
+  CustomTextarea
 } from './form-components'
 import {
-  EventType,
   Category,
   createAndEditEventSchema,
   CreateAndEditEventType
@@ -24,11 +23,11 @@ export default function AddEventForm() {
       eventName: '',
       houseNumber: '',
       dateOfEvent: '',
-      category: Category.Food,
       startTime: '',
       endTime: '',
       eventHost: '',
-      eventDetails: ''
+      eventDetails: '',
+      category: Category.Food
     }
   })
 
@@ -37,25 +36,54 @@ export default function AddEventForm() {
   }
 
   return (
-    <main>
-      <h2 className="text-4xl">Add Event</h2>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-4">
-          <CustomFormField name="Event Name" control={form.control} />
-          <CustomFormField name="House #" control={form.control} />
-          <CustomFormField name="Date of Event" control={form.control} />
-          <CustomFormSelect
-            name="Category"
-            control={form.control}
-            items={Object.values(Category)}
-          />
-          <CustomFormTimePicker name="Start Time" control={form.control} />
-          <CustomFormTimePicker name="End Time" control={form.control} />
-          <CustomFormField name="Event Host" control={form.control} />
-          <CustomFormTextarea name="Event Details" control={form.control} />
-          <Button type="submit">Add Event</Button>
-        </form>
-      </Form>
-    </main>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-4">
+        <h2 className="text-4xl">Add Event</h2>
+        <CustomFormField
+          name="eventName"
+          control={form.control}
+          placeholderText="Event Name"
+        />
+        <CustomFormField
+          name="houseNumber"
+          control={form.control}
+          placeholderText="House #"
+        />
+        <CustomFormField
+          name="dateOfEvent"
+          control={form.control}
+          placeholderText="Date"
+        />
+        <CustomSelect
+          name="category"
+          control={form.control}
+          placeholderText="Category"
+          items={Object.values(Category)}
+        />
+        <CustomSelect
+          name="startTime"
+          control={form.control}
+          items={times}
+          placeholderText="Start Time"
+        />
+        <CustomSelect
+          name="endTime"
+          control={form.control}
+          items={times}
+          placeholderText="End Time"
+        />
+        <CustomFormField
+          name="eventHost"
+          control={form.control}
+          placeholderText="Event Host"
+        />
+        <CustomTextarea
+          name="eventDetails"
+          control={form.control}
+          placeholderText="Event Details"
+        />
+        <Button type="submit">Add Event</Button>
+      </form>
+    </Form>
   )
 }
