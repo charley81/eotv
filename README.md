@@ -15,6 +15,7 @@
 - [x] auth (clerk)
 - [x] create custom date function and add to add event form
 - [x] create custom time function adn add to add event form
+- [] setup server side analytics
 - [] add date picker to forms
 - [] change favicon
 - [] fix landing page image color issue in dark mode

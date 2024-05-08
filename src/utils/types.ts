@@ -2,6 +2,7 @@ import * as z from 'zod'
 
 export type EventType = {
   id: string
+  clerkId: string
   eventName: string
   houseNumber: string
   dateOfEvent: Date
