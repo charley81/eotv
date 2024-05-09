@@ -2,9 +2,16 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { times } from '@/utils/times'
+
 import { Button } from '../ui/button'
 import { Form } from '../ui/form'
-import { times } from '@/utils/times'
+
+import { createEventAction } from '@/utils/actions'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useToast } from '../ui/use-toast'
+import { useRouter } from 'next/navigation'
+
 import {
   CustomFormField,
   CustomSelect,
@@ -23,7 +30,7 @@ export default function AddEventForm() {
     defaultValues: {
       eventName: '',
       houseNumber: '',
-      dateOfEvent: '',
+      dateOfEvent: new Date(),
       startTime: '',
       endTime: '',
       eventHost: '',
@@ -32,8 +39,27 @@ export default function AddEventForm() {
     }
   })
 
-  function onSubmit(data: CreateAndEditEventType) {
-    console.log(data)
+  const queryClient = useQueryClient()
+  const { toast } = useToast()
+  const router = useRouter()
+  const { mutate, isPending } = useMutation({
+    mutationFn: (values: CreateAndEditEventType) => createEventAction(values),
+    onSuccess: (data) => {
+      if (!data) {
+        toast({
+          description: 'there was an error'
+        })
+        return
+      }
+      toast({ description: 'job created' })
+      queryClient.invalidateQueries({ queryKey: ['all-events'] })
+      router.push('/all-events')
+      // form.reset();
+    }
+  })
+
+  function onSubmit(values: CreateAndEditEventType) {
+    mutate(values)
   }
 
   return (
@@ -79,7 +105,9 @@ export default function AddEventForm() {
           control={form.control}
           placeholderText="Event Details"
         />
-        <Button type="submit">Add Event</Button>
+        <Button type="submit" disabled={isPending}>
+          {isPending ? 'Adding Event...' : 'Add Event'}
+        </Button>
       </form>
     </Form>
   )

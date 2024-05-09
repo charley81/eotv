@@ -19,6 +19,8 @@
 - [] add date picker to forms
 - [] change favicon
 - [] fix landing page image color issue in dark mode
+- [] add rate limiting
+- [] fix react-server-dom-turbopack-client.browser.development.js:1828 Uncaught (in promise) Error: Only plain objects,
 
 ## Issues:
 

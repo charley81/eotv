@@ -22,17 +22,16 @@ export const events = createTable(
   'events',
   {
     id: serial('id').primaryKey(),
-    eventName: varchar('eventName', { length: 50 }).notNull(),
-    houseNumber: varchar('houseNumber', { length: 50 }).notNull(),
-    dateOfEvent: varchar('dateOfEvent', { length: 50 }).notNull(),
-    category: varchar('category', { length: 50 }).notNull(),
-    startTime: varchar('startTime', { length: 50 }).notNull(),
-    endTime: varchar('endTime', { length: 50 }).notNull(),
-    eventHost: varchar('eventHost', { length: 50 }).notNull(),
-    eventDetails: varchar('eventDetails', { length: 1024 }).notNull(),
-    createdAt: timestamp('created_at')
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
+    clerkId: varchar('clerkId', { length: 50 }),
+    eventName: varchar('eventName', { length: 50 }),
+    houseNumber: varchar('houseNumber', { length: 50 }),
+    dateOfEvent: timestamp('dateOfEvent'),
+    category: varchar('category', { length: 50 }),
+    startTime: varchar('startTime', { length: 50 }),
+    endTime: varchar('endTime', { length: 50 }),
+    eventHost: varchar('eventHost', { length: 50 }),
+    eventDetails: varchar('eventDetails', { length: 1024 }),
+    createdAt: timestamp('created_at').default(sql`CURRENT_TIMESTAMP`),
     updatedAt: timestamp('updatedAt')
   },
   (example) => ({
