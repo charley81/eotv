@@ -42,18 +42,18 @@ export default function AddEventForm() {
   const queryClient = useQueryClient()
   const { toast } = useToast()
   const router = useRouter()
+
   const { mutate, isPending } = useMutation({
-    mutationFn: (values: CreateAndEditEventType) => createEventAction(values),
-    onSuccess: (data) => {
-      if (!data) {
-        toast({
-          description: 'there was an error'
-        })
-        return
-      }
+    mutationFn: (values: CreateAndEditEventType) => {
+      return createEventAction(values)
+    },
+    onError: (error) => {
+      toast({ description: error.message })
+    },
+    onSuccess: () => {
       toast({ description: 'job created' })
-      queryClient.invalidateQueries({ queryKey: ['all-events'] })
-      router.push('/all-events')
+      queryClient.invalidateQueries({ queryKey: ['events'] })
+      router.push('/my-events')
       // form.reset();
     }
   })

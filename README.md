@@ -15,6 +15,7 @@
 - [x] auth (clerk)
 - [x] create custom date function and add to add event form
 - [x] create custom time function adn add to add event form
+- [] style add event form
 - [] setup server side analytics
 - [] add date picker to forms
 - [] change favicon
@@ -26,3 +27,10 @@
 
 - Need time picker that is customizable and works with shadcn, no time picker in shadcn
   • Created custom time selector from Shadcn select
+
+# Notes
+
+- currently create event is reaching mutation onSuccess
+- error toast is showing
+- onSuccess data is coming back as undefined
+- create event server action is not returning what it the event

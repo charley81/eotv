@@ -25,7 +25,7 @@ export const events = createTable(
     clerkId: varchar('clerkId', { length: 50 }),
     eventName: varchar('eventName', { length: 50 }),
     houseNumber: varchar('houseNumber', { length: 50 }),
-    dateOfEvent: timestamp('dateOfEvent'),
+    dateOfEvent: timestamp('dateOfEvent', { mode: 'date'  }),
     category: varchar('category', { length: 50 }),
     startTime: varchar('startTime', { length: 50 }),
     endTime: varchar('endTime', { length: 50 }),
