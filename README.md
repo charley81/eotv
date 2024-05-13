@@ -44,4 +44,6 @@
   • Created custom time selector from Shadcn select
 - Need to read documentation covering several new technologies
 
-# Notes
+# Current Issue
+
+- [] not able to push db or run studio
