@@ -10,16 +10,25 @@ import {
   SelectTrigger,
   SelectValue
 } from '../ui/select'
-import { EventType } from '@/utils/types'
+import { usePathname, useRouter } from 'next/navigation'
 
 export default function SearchForm() {
+  const router = useRouter()
+  const pathname = usePathname()
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
     const search = formData.get('search') as string
     const category = formData.get('category') as Category
-    console.log(search, category)
+
+    let params = new URLSearchParams()
+    params.set('search', search)
+    params.set('category', category)
+
+    router.push(`${pathname}?${params.toString()}`)
   }
+
   return (
     <form
       onSubmit={handleSubmit}
