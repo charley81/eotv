@@ -7,8 +7,10 @@ import {
   pgTableCreator,
   serial,
   timestamp,
-  varchar
+  varchar,
+  text
 } from 'drizzle-orm/pg-core'
+import { relations } from 'drizzle-orm'
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -18,6 +20,15 @@ import {
  */
 export const createTable = pgTableCreator((name) => `eotv_${name}`)
 
+export const users = createTable('users', {
+  id: serial('id').primaryKey(),
+  name: text('name').notNull()
+})
+
+export const userRelations = relations(users, ({ many }) => ({
+  events: many(events)
+}))
+
 export const events = createTable(
   'events',
   {
@@ -25,7 +36,7 @@ export const events = createTable(
     clerkId: varchar('clerkId', { length: 50 }),
     eventName: varchar('eventName', { length: 50 }),
     houseNumber: varchar('houseNumber', { length: 50 }),
-    dateOfEvent: timestamp('dateOfEvent', { mode: 'date'  }),
+    dateOfEvent: timestamp('dateOfEvent', { mode: 'date' }),
     category: varchar('category', { length: 50 }),
     startTime: varchar('startTime', { length: 50 }),
     endTime: varchar('endTime', { length: 50 }),
@@ -38,3 +49,7 @@ export const events = createTable(
     nameIndex: index('title_idx').on(example.eventName)
   })
 )
+
+export const eventRelations = relations(events, ({ one }) => ({
+  user: one(users, { fields: [events.clerkId], references: [users.id] })
+}))
