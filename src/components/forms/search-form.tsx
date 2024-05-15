@@ -3,6 +3,7 @@
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { Category } from '@/utils/types'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import {
   Select,
   SelectContent,
@@ -10,19 +11,23 @@ import {
   SelectTrigger,
   SelectValue
 } from '../ui/select'
-import { usePathname, useRouter } from 'next/navigation'
 
 export default function SearchForm() {
+  const searchParams = useSearchParams()
+  const search = searchParams.get('search') || ''
+  const category = searchParams.get('category') || 'All'
+
   const router = useRouter()
   const pathname = usePathname()
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    let params = new URLSearchParams()
+
     const formData = new FormData(event.currentTarget)
     const search = formData.get('search') as string
-    const category = formData.get('category') as Category
+    const category = formData.get('category') as string
 
-    let params = new URLSearchParams()
     params.set('search', search)
     params.set('category', category)
 
@@ -35,8 +40,13 @@ export default function SearchForm() {
       className="mt-20 p-4 max-w-3xl mx-auto xl:flex xl:justify-between xl:items-center xl:gap-x-4 xl:max-w-6xl"
     >
       <section className="grid gap-y-5 sm:grid-cols-2 sm:gap-y-0 sm:gap-x-4 xl:flex xl:flex-1 xl">
-        <Input type="text" placeholder="Search Events" name="search" />
-        <Select name="category">
+        <Input
+          type="text"
+          placeholder="Search Events"
+          name="search"
+          defaultValue={search}
+        />
+        <Select name="category" defaultValue={category}>
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
