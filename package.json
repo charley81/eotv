@@ -6,7 +6,7 @@
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
     "dev": "next dev",
-    "build": "prisma generate next build",
+    "build": "next build --turbo",
     "start": "next start",
     "lint": "next lint"
   },
