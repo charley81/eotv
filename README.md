@@ -37,6 +37,7 @@
 - [] change favicon
 - [] fix landing page image color issue in dark mode
 - [] add rate limiting
+- [] change auth to only see my-events, add, edit, delete events
 
 ## Issues:
 
@@ -46,4 +47,4 @@
 
 # Current Issue
 
-- [] not able to push db or run studio
+- events from db will show in all-events page with first logging in but once clicking submit on search for all events show no events found

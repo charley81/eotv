@@ -12,17 +12,17 @@ export default function EventsList() {
   const pageNumber = Number(searchParams.get('page')) || 1
 
   const { data, isPending } = useQuery({
-    queryKey: ['events', search, category, pageNumber],
+    queryKey: ['events', search ?? '', category, pageNumber],
     queryFn: () => getAllEventsAction({ search, category, page: pageNumber })
   })
 
   const events = data?.events || []
 
-  if (isPending) <h2 className="text-xl">Please wait...</h2>
+  if (isPending) return <h2 className="text-xl">Please wait...</h2>
   if (events.length < 1) return <h2 className="text-xl">No events found</h2>
 
   return (
-    <div>
+    <div className="grid md:grid-cols-2 gap-8">
       {events.map((event) => (
         <EventCard key={event.id} event={event} />
       ))}
