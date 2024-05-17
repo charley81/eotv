@@ -15,7 +15,7 @@ import {
 export default function SearchForm() {
   const searchParams = useSearchParams()
   const search = searchParams.get('search') || ''
-  const category = searchParams.get('category') || 'All'
+  const category = searchParams.get('category') || 'all'
 
   const router = useRouter()
   const pathname = usePathname()
@@ -51,7 +51,7 @@ export default function SearchForm() {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            {['All', ...Object.values(Category)].map((category) => (
+            {['all', ...Object.values(Category)].map((category) => (
               <SelectItem key={category} value={category}>
                 {category}
               </SelectItem>

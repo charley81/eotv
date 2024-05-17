@@ -1,4 +1,3 @@
-//import { getAllEventsAction } from '@/utils/actions'
 import EventsList from '@/components/events/events-list'
 import SearchForm from '@/components/forms/search-form'
 import { getAllEventsAction } from '@/utils/actions'
@@ -7,7 +6,6 @@ import {
   HydrationBoundary,
   dehydrate
 } from '@tanstack/react-query'
-import { SquareArrowOutDownRightIcon } from 'lucide-react'
 
 export default async function AllEventsPage() {
   const queryClient = new QueryClient()

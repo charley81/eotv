@@ -1,57 +1,104 @@
-// 'use server'
-// import { db } from '@/server/db'
-// import { auth } from '@clerk/nextjs/server'
-// import { redirect } from 'next/navigation'
-// import { events } from '@/server/db/schema'
-// import { createAndEditEventSchema, EventType } from './types'
-// import { revalidatePath } from 'next/cache'
-// import { QueryResult } from '@vercel/postgres'
+'use server'
 
-// function checkAuth(): string {
-//   const { userId } = auth()
-//   if (!userId) {
-//     throw new Error('Not authenticated')
-//     redirect('/')
-//   }
+import prisma from '../utils/db'
+import { auth } from '@clerk/nextjs/server'
+import {
+  EventType,
+  CreateAndEditEventType,
+  createAndEditEventSchema
+} from './types'
+import { redirect } from 'next/navigation'
+import { Prisma } from '@prisma/client'
+//import dayjs from 'dayjs'
 
-//   return userId
-// }
+function checkAuth() {
+  const { userId } = auth()
+  if (!userId) redirect('/')
+  return userId
+}
 
-// type Event = typeof events.$inferInsert
+// Add Event
+export async function AddEventAction(
+  values: CreateAndEditEventType
+): Promise<EventType | null> {
+  const userId = checkAuth()
+  try {
+    createAndEditEventSchema.parse(values)
+    const event = await prisma.eotvEvent.create({
+      data: {
+        ...values,
+        clerkId: userId
+      }
+    })
 
-// // ===== Create Event Action =====
-// // export async function createEventAction(values: Event) {
-// //   const userId = checkAuth()
-// //   createAndEditEventSchema.parse(values)
-// //   try {
-// //     await db.insert(events).values({ ...values, clerkId: userId })
-// //     revalidatePath('/all-events')
-// //   } catch (error) {
-// //     console.error(error)
-// //   }
-// // }
+    return event
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
 
-// // ===== Get All Events Action =====
-// // type GetAllEventActionType = {
-// //   search?: string
-// //   category?: string
-// //   page?: number
-// //   limit?: number
-// // }
+type GetAllEventsActionType = {
+  search?: string
+  category?: string
+  page?: number
+  limit?: number
+}
 
-// // export async function getAllEventsAction({
-// //   search,
-// //   category,
-// //   page = 1,
-// //   limit = 10
-// // }: GetAllEventActionType): Promise<{
-// //   events: EventType[]
-// //   count: number
-// //   page: number
-// //   totalPages: number
-// // }> {
-// //   checkAuth()
-// //   const result = await db.query.events.findMany({})
+// Get All Events
+export async function getAllEventsAction({
+  search,
+  category,
+  page = 1,
+  limit = 10
+}: GetAllEventsActionType): Promise<{
+  events: EventType[]
+  count: number
+  page: number
+  totalPages: number
+}> {
+  const userId = checkAuth()
 
-// //   return { events: [], count: 0, page: 1, totalPages: 1 }
-// // }
+  try {
+    let whereClause: Prisma.EotvEventWhereInput = {
+      clerkId: userId
+    }
+
+    if (search) {
+      whereClause = {
+        ...whereClause,
+        OR: [
+          { eventName: { contains: search } },
+          { category: { contains: search } }
+        ]
+      }
+    }
+
+    if (category && category !== 'all') {
+      whereClause = {
+        ...whereClause,
+        category: category
+      }
+    }
+
+    const skip = (page - 1) * limit
+
+    const events: EventType[] = await prisma.eotvEvent.findMany({
+      where: whereClause,
+      skip,
+      take: limit,
+      orderBy: {
+        createdAt: 'desc'
+      }
+    })
+
+    const count: number = await prisma.eotvEvent.count({
+      where: whereClause
+    })
+    const totalPages = Math.ceil(count / limit)
+    return { events, count, page, totalPages }
+  } catch (error) {
+    console.error(error)
+    return { events: [], count: 0, page: 1, totalPages: 0 }
+  }
+}

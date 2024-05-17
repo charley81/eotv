@@ -7,7 +7,7 @@ import { times } from '@/utils/times'
 import { Button } from '../ui/button'
 import { Form } from '../ui/form'
 
-import { createEventAction } from '@/utils/actions'
+import { AddEventAction } from '@/utils/actions'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useToast } from '../ui/use-toast'
 import { useRouter } from 'next/navigation'
@@ -44,17 +44,16 @@ export default function AddEventForm() {
   const router = useRouter()
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (values: CreateAndEditEventType) => {
-      return createEventAction(values)
-    },
-    onError: (error) => {
-      toast({ description: error.message })
-    },
-    onSuccess: () => {
-      toast({ description: 'job created' })
+    mutationFn: (values: CreateAndEditEventType) => AddEventAction(values),
+    onSuccess: (data) => {
+      if (!data) {
+        toast({ description: 'There was an error' })
+        return
+      }
+      toast({ description: 'Event added successfully' })
       queryClient.invalidateQueries({ queryKey: ['events'] })
-      router.push('/my-events')
-      // form.reset();
+
+      router.push('/all-events')
     }
   })
 
