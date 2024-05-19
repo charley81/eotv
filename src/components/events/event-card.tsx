@@ -1,10 +1,9 @@
 import { EventType } from '@/utils/types'
 import Link from 'next/link'
-import { truncate } from '@/utils/helper-functions'
+import { truncate, capitalizeWords } from '@/utils/helper-functions'
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle
@@ -19,10 +18,10 @@ export default function EventCard({ event }: EventCardProps) {
   return (
     <Card>
       <CardHeader className="px-4 pt-8">
-        <CardTitle>{event.eventName}</CardTitle>
+        <CardTitle>{capitalizeWords(event.eventName)}</CardTitle>
       </CardHeader>
       <CardContent className="px-4 py-8">
-        <p>{truncate(event.eventDetails, 60)}</p>
+        <p>{truncate(event.eventDetails, 100)}</p>
       </CardContent>
       <CardFooter>
         <Link

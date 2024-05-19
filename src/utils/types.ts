@@ -33,8 +33,8 @@ export const createAndEditEventSchema = z.object({
   eventHost: z.string().min(2, {
     message: 'Event host must be at least 2 characters'
   }),
-  eventDetails: z.string().min(2, {
-    message: 'Event details must be at least 2 characters'
+  eventDetails: z.string().min(80, {
+    message: 'Event details must be at least 80 characters'
   }),
   category: z.nativeEnum(Category),
   startTime: z.string().min(2, {
