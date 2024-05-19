@@ -22,7 +22,7 @@ export default function EventsList() {
   if (events.length < 1) return <h2 className="text-xl">No events found</h2>
 
   return (
-    <div className="grid md:grid-cols-2 gap-8">
+    <div className="grid md:grid-cols-2 gap-8 mt-20 p-4">
       {events.map((event) => (
         <EventCard key={event.id} event={event} />
       ))}

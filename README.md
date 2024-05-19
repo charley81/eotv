@@ -38,6 +38,7 @@
 - [] fix landing page image color issue in dark mode
 - [] add rate limiting
 - [] change auth to only see my-events, add, edit, delete events
+- [] setup test login
 
 ## Issues:
 

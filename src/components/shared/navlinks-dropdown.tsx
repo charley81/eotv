@@ -24,7 +24,7 @@ export default function NavlinksDropdown() {
       <div className="p-2 w-lvh">
         <DropdownMenuContent className="w-52" align="start" sideOffset={16}>
           {links.map((link) => (
-            <DropdownMenuItem key={link.href}>
+            <DropdownMenuItem key={link.href} asChild>
               <Link href={link.href} className="flex items-center gap-2">
                 {link.icon} {link.name}
               </Link>
