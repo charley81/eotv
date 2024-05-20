@@ -26,7 +26,7 @@ export default function EventCard({ event }: EventCardProps) {
       <CardFooter>
         <Link
           className="w-full font-bold text-muted-foreground flex gap-x-1 items-center justify-end"
-          href={`/events/${event.id}`}
+          href={`/all-events/${event.id}`}
         >
           <MoveRight className="text-primary" />
           More

@@ -63,9 +63,9 @@ export default function AddEventForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="px-4">
-        <h2 className="text-4xl">Add Event</h2>
-        <div className="grid gap-y-4 md:grid-cols-2 md:gap-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="px-4 pt-16">
+        <h2 className="text-4xl mb-8">Add Event</h2>
+        <div className="grid gap-y-8 md:grid-cols-2 md:gap-4">
           <CustomFormField
             name="eventName"
             control={form.control}
@@ -83,7 +83,7 @@ export default function AddEventForm() {
             placeholderText="Category"
             items={Object.values(Category)}
           />
-          <div className="w-full grid gap-y-4 md:flex md:gap-2">
+          <div className="w-full grid gap-y-8 md:flex md:gap-4">
             <CustomSelect
               name="startTime"
               control={form.control}
@@ -109,9 +109,9 @@ export default function AddEventForm() {
           name="eventDetails"
           control={form.control}
           placeholderText="Event Details"
-          styles="mt-4"
+          styles="mt-8"
         />
-        <Button type="submit" disabled={isPending} className="mt-4">
+        <Button type="submit" disabled={isPending} className="mt-8">
           {isPending ? 'Adding Event...' : 'Add Event'}
         </Button>
       </form>

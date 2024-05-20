@@ -37,7 +37,7 @@ export default function SearchForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-10 p-4 max-w-3xl mx-auto xl:flex xl:justify-between xl:items-center xl:gap-x-4 xl:max-w-6xl"
+      className="mt-16 p-4 max-w-3xl mx-auto xl:flex xl:justify-between xl:items-center xl:gap-x-4 xl:max-w-6xl"
     >
       <section className="grid gap-y-5 sm:grid-cols-2 sm:gap-y-0 sm:gap-x-4 xl:flex xl:flex-1 xl">
         <Input
