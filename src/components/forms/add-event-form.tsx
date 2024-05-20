@@ -63,48 +63,55 @@ export default function AddEventForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-y-4">
-        <h2 className="text-4xl">Add Event</h2>
-        <CustomFormField
-          name="eventName"
-          control={form.control}
-          placeholderText="Event Name"
-        />
-        <CustomFormField
-          name="houseNumber"
-          control={form.control}
-          placeholderText="House #"
-        />
-        <CustomDatePicker name="dateOfEvent" control={form.control} />
-        <CustomSelect
-          name="category"
-          control={form.control}
-          placeholderText="Category"
-          items={Object.values(Category)}
-        />
-        <CustomSelect
-          name="startTime"
-          control={form.control}
-          items={times}
-          placeholderText="Start Time"
-        />
-        <CustomSelect
-          name="endTime"
-          control={form.control}
-          items={times}
-          placeholderText="End Time"
-        />
-        <CustomFormField
-          name="eventHost"
-          control={form.control}
-          placeholderText="Event Host"
-        />
+      <form onSubmit={form.handleSubmit(onSubmit)} className="px-4 pt-16">
+        <h2 className="text-4xl mb-8">Add Event</h2>
+        <div className="grid gap-y-8 md:grid-cols-2 md:gap-4">
+          <CustomFormField
+            name="eventName"
+            control={form.control}
+            placeholderText="Event Name"
+          />
+          <CustomFormField
+            name="houseNumber"
+            control={form.control}
+            placeholderText="House #"
+          />
+          <CustomDatePicker name="dateOfEvent" control={form.control} />
+          <CustomSelect
+            name="category"
+            control={form.control}
+            placeholderText="Category"
+            items={Object.values(Category)}
+          />
+          <div className="w-full grid gap-y-8 md:flex md:gap-4">
+            <CustomSelect
+              name="startTime"
+              control={form.control}
+              items={times}
+              placeholderText="Start Time"
+            />
+            <CustomSelect
+              name="endTime"
+              control={form.control}
+              items={times}
+              placeholderText="End Time"
+            />
+          </div>
+
+          <CustomFormField
+            name="eventHost"
+            control={form.control}
+            placeholderText="Event Host"
+          />
+        </div>
+
         <CustomTextarea
           name="eventDetails"
           control={form.control}
           placeholderText="Event Details"
+          styles="mt-8"
         />
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" disabled={isPending} className="mt-8">
           {isPending ? 'Adding Event...' : 'Add Event'}
         </Button>
       </form>

@@ -48,7 +48,7 @@ export function CustomDatePicker({ name, control }: CustomDatePickerProps) {
                 <Button
                   variant={'outline'}
                   className={cn(
-                    'pl-3 text-left font-normal',
+                    'px-3 text-left font-normal rounded-md text-muted-foreground',
                     !field.value && 'text-muted-foreground'
                   )}
                 >
@@ -111,19 +111,21 @@ type CustomTextareaProps = {
   control: Control<any>
   name: string
   placeholderText: string
+  styles: string
 }
 
 export function CustomTextarea({
   name,
   control,
-  placeholderText
+  placeholderText,
+  styles
 }: CustomTextareaProps) {
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className={styles}>
           <FormControl>
             <Textarea placeholder={placeholderText} {...field} />
           </FormControl>
